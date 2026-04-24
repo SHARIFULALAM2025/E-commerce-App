@@ -12,7 +12,20 @@
           "package_name": "com.sharif.fast"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "891958582372-rgk7dp005dvpqb19ql7kcu1s2d65eu6v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sharif.fast",
+            "certificate_hash": "6513b7b9c982a7fcd9c0d3ce420c1623e8bcd571"
+          }
+        },
+        {
+          "client_id": "891958582372-n16f86t6k2u8fighq4fjv7offu2c7sts.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCHsI-72IkHi4w65PigcgjugiQa6LAk6iY"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "891958582372-n16f86t6k2u8fighq4fjv7offu2c7sts.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
