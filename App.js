@@ -1,39 +1,56 @@
 import React, { useEffect } from 'react';
-import { Text, View, TouchableOpacity, Image } from 'react-native';
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { Text, View, TouchableOpacity, Image, Alert } from 'react-native';
+import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 import "./global.css";
 
 export default function App() {
 
   useEffect(() => {
-
+    // গুগল সাইন-ইন কনফিগারেশন
     GoogleSignin.configure({
       webClientId: '891958582372-n16f86t6k2u8fighq4fjv7offu2c7sts.apps.googleusercontent.com',
+      offlineAccess: true,
+      forceCodeForRefreshToken: true,
     });
   }, []);
-  //891958582372-n16f86t6k2u8fighq4fjv7offu2c7sts.apps.googleusercontent.com
+
   const onGoogleButtonPress = async () => {
     try {
-      // ১. গুগল সাইন-ইন শুরু করা
+      // ১. প্লে সার্ভিস চেক করা (অ্যান্ড্রয়েডের জন্য খুবই জরুরি)
+      await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+
+      // ২. আগের কোনো সেশন থাকলে সাইন আউট করে নেওয়া (যাতে বাটন হ্যাং না হয়)
+      await GoogleSignin.signOut().catch(() => { });
+
+      // ৩. গুগল সাইন-ইন শুরু
       const signInResult = await GoogleSignin.signIn();
 
-      // ২. চেক করুন রেজাল্ট ঠিক আছে কি না (লাইব্রেরি ভার্সন অনুযায়ী এটি আলাদা হতে পারে)
+      // ৪. ID Token বের করা
       const idToken = signInResult.data ? signInResult.data.idToken : signInResult.idToken;
 
       if (!idToken) {
-        throw new Error('গুগল থেকে কোন ID Token পাওয়া যায়নি!');
+        throw new Error('গুগল থেকে কোন ID Token পাওয়া যায়নি!');
       }
 
-      // ৩. ফায়ারবেসের জন্য ক্রেডেনশিয়াল তৈরি করা
+      // ৫. ফায়ারবেস ক্রেডেনশিয়াল তৈরি ও লগইন
       const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+      const userCredential = await auth().signInWithCredential(googleCredential);
 
-      // ৪. ফায়ারবেসে সাইন-ইন করা
-      return auth().signInWithCredential(googleCredential);
+      Alert.alert("Success", `Welcome ${userCredential.user.displayName}!`);
 
     } catch (error) {
-      console.log(error);
-      alert('Login Failed: ' + error.message);
+      // নির্দিষ্ট এরর হ্যান্ডলিং (বাটন কাজ না করার কারণ বুঝতে সাহায্য করবে)
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        console.log("ইউজার সাইন-ইন ক্যান্সেল করেছে");
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        console.log("সাইন-ইন অলরেডি প্রসেসিং এ আছে");
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        Alert.alert("Error", "গুগল প্লে সার্ভিস পাওয়া যায়নি");
+      } else {
+        console.log("Full Error: ", error);
+        Alert.alert('Login Failed', error.message);
+      }
     }
   };
 
