@@ -7,12 +7,12 @@ import "./global.css";
 export default function App() {
 
   useEffect(() => {
-    
+
     GoogleSignin.configure({
       webClientId: '891958582372-n16f86t6k2u8fighq4fjv7offu2c7sts.apps.googleusercontent.com',
     });
   }, []);
-
+  //891958582372-n16f86t6k2u8fighq4fjv7offu2c7sts.apps.googleusercontent.com
   const googleLogin = async () => {
     try {
       // ১. ইউজারের ডিভাইস থেকে গুগল একাউন্ট সিলেক্ট করা

@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "891958582372-q6f9nkfi9n8sr26vgtq9q7ve06epgpli.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sharif.fast",
+            "certificate_hash": "1d4fb598eb0b2070c7b451482ba017b4c5c863e3"
+          }
+        },
+        {
           "client_id": "891958582372-rgk7dp005dvpqb19ql7kcu1s2d65eu6v.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
