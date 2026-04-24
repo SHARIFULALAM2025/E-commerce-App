@@ -16,7 +16,7 @@
       "supportsTablet": true
     },
     "android": {
-      "package":"com.sharif.fast",
+      "package": "com.sharif.fast",
       "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
@@ -29,7 +29,9 @@
       "bundler": "metro"
     },
     "plugins": [
-      "@react-native-firebase/app"
+      "@react-native-firebase/app",
+      "@react-native-firebase/auth",
+      "@react-native-google-signin/google-signin"
     ],
     "extra": {
       "eas": {
