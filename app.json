@@ -16,6 +16,8 @@
       "supportsTablet": true
     },
     "android": {
+      "package":"com.sharif.fast",
+      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -25,6 +27,14 @@
     "web": {
       "favicon": "./assets/favicon.png",
       "bundler": "metro"
+    },
+    "plugins": [
+      "@react-native-firebase/app"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "3d40b4e2-e7fd-4fd0-a787-d135cc71c395"
+      }
     }
   }
 }
